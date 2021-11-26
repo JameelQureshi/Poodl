@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_ScenesNFT/FeatheredPlanes.unity
+    path: Assets/Scenes/AR.unity
     guid: 8252358a1e2ba7549a94df43aacec984
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: e3ff09891e4674d97853ec6e4ddc3f56,
