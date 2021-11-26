@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Target
+  - ' cute_axolotl'
+  - Cat
+  - Sahiba
+  - Hippie Shiba
+  - Robot Sahiba
+  - Cute Deer
+  - Cute Fox
+  - Toy Penguin
+  - Cute Home Robot
+  - Cute Robot
+  - Late cute Robot
+  - Cute Octus
+  - switch
+  - Viking Book
+  - Watermelon
+  - Ring
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - PostProcessing
+  - Screen Space
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
