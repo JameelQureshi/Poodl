@@ -34,6 +34,9 @@ namespace UnityEngine.XR.ARFoundation.Samples
         bool isShadowPlaneAugmented=false;
         public GameObject AddButton;
         public ARPlaneManager m_ARPlaneManager;
+
+        
+        public static PlaceOnPlane instance;
         /// <summary>
         /// The prefab to instantiate on touch.
         /// </summary>
@@ -70,6 +73,16 @@ namespace UnityEngine.XR.ARFoundation.Samples
             m_RaycastManager = GetComponent<ARRaycastManager>();
             m_ARPlaneManager = GetComponent<ARPlaneManager>();
             DisbleTracking();
+
+                if (instance != null)
+                {
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    instance = this;
+                }
+            
         }
         
         public void SelectModel(int index)
@@ -130,10 +143,12 @@ namespace UnityEngine.XR.ARFoundation.Samples
                     
                     GameObject result = Instantiate(Prefabs[NewIndex], hitPose.position, hitPose.rotation);
                     result.SetActive(true);
+                    canAugment = false;
+                    
                     onContentPlaced.Invoke();
                     Handheld.Vibrate();
                     AddButton.SetActive(true);
-                    canAugment = false;
+                   
                     debugLog.text = "Select Model!";
                     TakeImageButton.SetActive(true);
                     

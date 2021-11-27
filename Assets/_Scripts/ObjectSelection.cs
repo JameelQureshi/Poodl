@@ -10,21 +10,13 @@ public class ObjectSelection : MonoBehaviour
 
     public GameObject ring;
     bool check = true;
+    private bool isSelected = false;
      private void Awake()
      {
-        gameObject.GetComponent<LeanTouch>().enabled = true;
-        gameObject.GetComponent<LeanPinchScale>().enabled = true;
-        gameObject.GetComponent<LeanTwistRotateAxis>().enabled = true;
-        TouchCounter.Instance.DeleteButton.SetActive(true);
+        DeselectObject();
+        //TouchCounter.Instance.DeleteButton.SetActive(true);
         print("downloaded");
-        GameObject[] objs;
-         objs = GameObject.FindGameObjectsWithTag("Target");
-         foreach (GameObject model in objs)
-         {
-            model.transform.GetChild(0).gameObject.SetActive(false);
-        }
-         ring.SetActive(false);
-        //TouchCounter.Instance.AddButton.SetActive(true);
+   
      }
     private void OnMouseUp()
     {
@@ -32,27 +24,45 @@ public class ObjectSelection : MonoBehaviour
         gameObject.GetComponent<LeanTouch>().enabled = false;
         gameObject.GetComponent<LeanPinchScale>().enabled = false;
         gameObject.GetComponent<LeanTwistRotateAxis>().enabled = false;
-       // TouchCounter.Instance.DeleteButton.SetActive(false);
-       // TouchCounter.Instance.AddButton.SetActive(true);
-        ring.SetActive(false);
-
+       
     }
     private void OnMouseDown()
     {
+        if (isSelected)
+        {
+            SelectObject();
+            return;
+        }
+        GameObject[] models = GameObject.FindGameObjectsWithTag("Target");
+        foreach (GameObject model in models)
+        {
+            model.GetComponent<ObjectSelection>().DeselectObject();
+        }
+        
+        SelectObject();
+    }
+
+    private void SelectObject()
+    {
+        isSelected = true;
+        TouchCounter.Instance.selectedObject = gameObject;
+        if (!BottomPanelAnimationEvents.Instance.isOpened)
+        {
+            TouchCounter.Instance.DeleteButton.SetActive(true);
+        }
+        
         gameObject.GetComponent<LeanTouch>().enabled = true;
         gameObject.GetComponent<LeanPinchScale>().enabled = true;
         gameObject.GetComponent<LeanTwistRotateAxis>().enabled = true;
-       // TouchCounter.Instance.DeleteButton.SetActive(true);
-      //  TouchCounter.Instance.AddButton.SetActive(false);
-        GameObject[] objs;
-        objs = GameObject.FindGameObjectsWithTag("Target");
-        foreach (GameObject model in objs)
-        {
-            model.transform.GetChild(0).gameObject.SetActive(false);
-        }
-
         ring.SetActive(true);
-
+    }
+    private void DeselectObject()
+    {
+        isSelected = false;
+        gameObject.GetComponent<LeanTouch>().enabled = false;
+        gameObject.GetComponent<LeanPinchScale>().enabled = false;
+        gameObject.GetComponent<LeanTwistRotateAxis>().enabled = false;
+        ring.SetActive(false);
     }
 
 

@@ -10,6 +10,8 @@ public class TouchCounter : MonoBehaviour
     public GameObject DeleteButton;
     public GameObject ArPanel;
 
+    public GameObject selectedObject;
+
     // Start is called before the first frame update
     public static TouchCounter Instance = null;
     private void Awake()
@@ -40,5 +42,13 @@ public class TouchCounter : MonoBehaviour
     public void add()
     {
         ArPanel.SetActive(true);
+    }
+
+    public void Delete()
+    {
+        if (selectedObject!=null)
+        {
+            Destroy(selectedObject);
+        }
     }
 }
