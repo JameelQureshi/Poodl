@@ -8,7 +8,7 @@ using UnityEngine.XR.ARFoundation.Samples;
 public class ObjectSelection : MonoBehaviour
 {
 
-    public GameObject ring;
+  //  public GameObject ring;
     bool check = true;
     private bool isSelected = false;
      private void Awake()
@@ -54,7 +54,7 @@ public class ObjectSelection : MonoBehaviour
         gameObject.GetComponent<LeanTouch>().enabled = true;
         gameObject.GetComponent<LeanPinchScale>().enabled = true;
         gameObject.GetComponent<LeanTwistRotateAxis>().enabled = true;
-        ring.SetActive(true);
+       // ring.SetActive(true);
     }
     private void DeselectObject()
     {
@@ -62,7 +62,7 @@ public class ObjectSelection : MonoBehaviour
         gameObject.GetComponent<LeanTouch>().enabled = false;
         gameObject.GetComponent<LeanPinchScale>().enabled = false;
         gameObject.GetComponent<LeanTwistRotateAxis>().enabled = false;
-        ring.SetActive(false);
+      //  ring.SetActive(false);
     }
 
 
