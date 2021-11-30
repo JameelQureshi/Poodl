@@ -27,8 +27,6 @@ namespace UnityEngine.XR.ARFoundation.Samples
         private int placedPrefabCount;
         public GameObject TakeImageButton;
         public GameObject Featheredplane;
-        public GameObject EnableTrackingButton;
-        public GameObject DisableTrackingButton;
         public ModelLoader ModelLoader;
         public GameObject shadowPlane;
         bool isShadowPlaneAugmented=false;
@@ -54,16 +52,13 @@ namespace UnityEngine.XR.ARFoundation.Samples
         {
             foreach (var plane in m_ARPlaneManager.trackables)
                 plane.gameObject.SetActive(true);
-           // EnableTrackingButton.SetActive(false);
-           // DisableTrackingButton.SetActive(true);
+           
         }
         public void DisbleTracking()
         {
             foreach (var plane in m_ARPlaneManager.trackables)
                 plane.gameObject.SetActive(false);
-           // DisableTrackingButton.SetActive(false);
-           // EnableTrackingButton.SetActive(true);
-            
+          
         }
 
         public GameObject spawnedObject { get; private set; }
@@ -151,6 +146,7 @@ namespace UnityEngine.XR.ARFoundation.Samples
                    
                     debugLog.text = "Select Model!";
                     TakeImageButton.SetActive(true);
+                    DisbleTracking();
                     
                 }
                 
