@@ -9,12 +9,9 @@ using UnityEngine.XR.ARFoundation.Samples;
 public class ModelLoader : MonoBehaviour
 {
     private string filepath;
-    public ModelDownloader ModelDownloader;
     public GameObject result;
     public GameObject refObj;
-    public PlaceOnPlane placeOnPlane;
-    public GameObject LoadButon;
-    public GameObject Loading;
+    
 
     public static ModelLoader Instance = null;
     private void Awake()
@@ -26,7 +23,7 @@ public class ModelLoader : MonoBehaviour
 
         Instance = this;
     }
-    private void ImportGLTF()
+    private void ImportGLTF(int id)
     {
 
         result = Importer.LoadFromFile(filepath);
@@ -35,8 +32,12 @@ public class ModelLoader : MonoBehaviour
         result.transform.localScale = new Vector3(5, 5, 5);
         result.transform.parent = finalResult.transform;
         result.transform.localPosition = Vector3.zero;
+
+        finalResult.GetComponent<ObjectSelection>().id = id;
         finalResult.SetActive(false);
-        placeOnPlane.Prefabs[0] = finalResult;
+        PlaceOnPlane.instance.AddItemToList(finalResult,id);
+        PlaceOnPlane.instance.SelectModel(id);
+        LoadingManager.instance.HideLoading();
     }
 
     
@@ -46,15 +47,21 @@ public class ModelLoader : MonoBehaviour
 
         
     }
-    public void LoadModel()
+    public void LoadModel(string path,int id)
     {
+        
+        filepath = path;
+        if (PlaceOnPlane.instance.IsModelLoaded(id))
         {
-            Loading.SetActive(true);
-            filepath = ModelDownloader.localURL;
-            ImportGLTF();
-            LoadButon.SetActive(false);
-            
+            PlaceOnPlane.instance.SelectModel(id);
         }
+        else
+        {
+            LoadingManager.instance.ShowLoading();
+            LoadingManager.instance.progress.text = "";
+            ImportGLTF(id);
+        }
+
     }
 
 }

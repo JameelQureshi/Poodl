@@ -22,6 +22,7 @@ public class SelectionButtonCreator : MonoBehaviour
         for (int i = 0; i<downloadResult.assets.Count; i++ )
         {
             GameObject button = Instantiate(buttonRef,scroll.transform);
+            button.GetComponent<ButtonItem>().Init(downloadResult.assets[i]);
         }
     }
 }

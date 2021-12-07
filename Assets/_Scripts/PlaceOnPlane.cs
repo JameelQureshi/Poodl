@@ -19,11 +19,13 @@ namespace UnityEngine.XR.ARFoundation.Samples
     {
       
         public UnityEvent onContentPlaced;
-        public GameObject[] Prefabs;
+
+        private List<GameObject> prefabs = new List<GameObject>();
+
         public Text debugLog;
         public bool canAugment = false;
         public Animator animator;
-        private int NewIndex;
+        private int modelId;
         private int placedPrefabCount;
         public GameObject TakeImageButton;
         public GameObject Featheredplane;
@@ -35,19 +37,31 @@ namespace UnityEngine.XR.ARFoundation.Samples
 
         
         public static PlaceOnPlane instance;
-        /// <summary>
-        /// The prefab to instantiate on touch.
-        /// </summary>
-        //   public GameObject placedPrefab
-        // {
-        // get { return m_PlacedPrefab; }
-        //   set { m_PlacedPrefab = value; }
-        //  }
 
-        /// <summary>
-        /// The object instantiated as a result of a successful raycast intersection with a plane.
-        /// </summary>
-        /// 
+        public bool IsModelLoaded(int id)
+        {
+            foreach (GameObject prefab in prefabs)
+            {
+                if (prefab.GetComponent<ObjectSelection>().id == id)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void AddItemToList(GameObject item,int id)
+        {
+            foreach (GameObject prefab in prefabs)
+            {
+                if (prefab.GetComponent<ObjectSelection>().id == id)
+                {
+                    return;
+                }
+            }
+            prefabs.Add(item);
+        }
+
         public void EnableTracking()
         {
             foreach (var plane in m_ARPlaneManager.trackables)
@@ -80,11 +94,9 @@ namespace UnityEngine.XR.ARFoundation.Samples
             
         }
         
-        public void SelectModel(int index)
+        public void SelectModel(int id)
         {
-            NewIndex = index;
-            //ModelLoader.LoadModel();
-           // Prefabs[NewIndex] = ModelLoader.result;
+            modelId = id;
             debugLog.text = "Tap to place new Model!";
             animator.SetTrigger("Down");
             Invoke(nameof(TurnAugmentation), 1.0f);
@@ -94,7 +106,6 @@ namespace UnityEngine.XR.ARFoundation.Samples
         void TurnAugmentation()
         {
             canAugment = true;
-
         }
         bool TryGetTouchPosition(out Vector2 touchPosition)
         {
@@ -135,9 +146,18 @@ namespace UnityEngine.XR.ARFoundation.Samples
                         Instantiate(shadowPlane, hitPose.position, hitPose.rotation);
                         isShadowPlaneAugmented = true;
                     }
+
+                    GameObject result;
+                    foreach (GameObject prefab in prefabs)
+                    {
+                        if (prefab.GetComponent<ObjectSelection>().id == modelId)
+                        {
+                            result = Instantiate(prefab, hitPose.position, hitPose.rotation);
+                            result.SetActive(true);
+                        }
+                    }
                     
-                    GameObject result = Instantiate(Prefabs[NewIndex], hitPose.position, hitPose.rotation);
-                    result.SetActive(true);
+                    
                     canAugment = false;
                     
                     onContentPlaced.Invoke();

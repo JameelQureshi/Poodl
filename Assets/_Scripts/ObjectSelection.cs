@@ -7,6 +7,7 @@ using UnityEngine.XR.ARFoundation.Samples;
 
 public class ObjectSelection : MonoBehaviour
 {
+    public int id;
 
     public GameObject ring;
     bool check = true;
