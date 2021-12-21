@@ -25,7 +25,8 @@ public class ObjectSelection : MonoBehaviour
         gameObject.GetComponent<LeanTouch>().enabled = false;
         gameObject.GetComponent<LeanPinchScale>().enabled = false;
         gameObject.GetComponent<LeanTwistRotateAxis>().enabled = false;
-       
+        gameObject.GetComponent<LeanTranslateSmooth>().enabled = false;
+
     }
     private void OnMouseDown()
     {
@@ -55,7 +56,8 @@ public class ObjectSelection : MonoBehaviour
         gameObject.GetComponent<LeanTouch>().enabled = true;
         gameObject.GetComponent<LeanPinchScale>().enabled = true;
         gameObject.GetComponent<LeanTwistRotateAxis>().enabled = true;
-       //ring.SetActive(true);
+        gameObject.GetComponent<LeanTranslateSmooth>().enabled = true;
+        //ring.SetActive(true);
     }
     private void DeselectObject()
     {
@@ -63,7 +65,8 @@ public class ObjectSelection : MonoBehaviour
         gameObject.GetComponent<LeanTouch>().enabled = false;
         gameObject.GetComponent<LeanPinchScale>().enabled = false;
         gameObject.GetComponent<LeanTwistRotateAxis>().enabled = false;
-       ring.SetActive(false);
+        gameObject.GetComponent<LeanTranslateSmooth>().enabled = false;
+        ring.SetActive(false);
     }
 
 

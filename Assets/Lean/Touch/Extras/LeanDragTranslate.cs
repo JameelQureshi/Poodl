@@ -137,7 +137,7 @@ namespace Lean.Touch
 			}
 		}
 
-		private void Translate(Vector2 screenDelta)
+		public void Translate(Vector2 screenDelta)
 		{
 			// Make sure the camera exists
 			var camera = LeanHelper.GetCamera(this._camera, gameObject);
